@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 const (
@@ -165,7 +165,7 @@ func getPEMCertificate(token *jwt.Token) (string, error) {
 	return cert, nil
 }
 
-// https://github.com/dgrijalva/jwt-go/issues/290
+// https://github.com/golang-jwt/jwt/v5/issues/290
 func verifyAudience(tokenClaims jwt.Claims, audience string) error {
 	var claims map[string]interface{}
 	claims, _ = tokenClaims.(jwt.MapClaims)
