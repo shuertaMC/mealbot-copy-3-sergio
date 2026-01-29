@@ -1,7 +1,7 @@
 module github.com/johnamadeo/mealbot
 
 require (
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/johnamadeo/server v0.0.0-20181223122326-3cd1bc6d2320
 	github.com/mailgun/mailgun-go v2.0.0+incompatible
 	github.com/sirupsen/logrus v1.4.2
