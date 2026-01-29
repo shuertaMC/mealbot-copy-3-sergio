@@ -20,9 +20,6 @@ func getEnv(key, defaultValue string) string {
 
 // LocalDBConnection :
 var LocalDBConnection = server.LocalDBConnection{
-	User:     getEnv("DB_USER", "postgres"),
-	Password: getEnv("DB_PASSWORD", ""),
-	DBName:   getEnv("DB_NAME", "mealbot"),
-	Host:     getEnv("DB_HOST", "localhost"),
-	Port:     getEnv("DB_PORT", "5432"),
+	User:   getEnv("DB_USER", "postgres"),
+	DBName: getEnv("DB_NAME", "mealbot"),
 }
