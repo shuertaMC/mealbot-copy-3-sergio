@@ -106,8 +106,8 @@ func GetAuthHandler(handler http.Handler) http.Handler {
 				return token, errors.New("Invalid audience")
 			}
 
-			checkIss := token.Claims.(jwt.MapClaims).VerifyIssuer(Issuer, true)
-			if !checkIss {
+			iss, err := token.Claims.(jwt.MapClaims).GetIssuer()
+			if err != nil || iss != Issuer {
 				return token, errors.New("Invalid issuer")
 			}
 
