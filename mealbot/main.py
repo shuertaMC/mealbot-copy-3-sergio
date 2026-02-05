@@ -44,10 +44,14 @@ app = FastAPI(
 # Add CORS middleware (must be added first to handle preflight requests)
 add_cors_middleware(app)
 
-# Routers will be added in future tasks:
-# from .routers import members, organizations, rounds, pairs
+# Include routers
+from .routers import organizations
+
+app.include_router(organizations.router)
+
+# Future routers to be added:
+# from .routers import members, rounds, pairs
 # app.include_router(members.router)
-# app.include_router(organizations.router)
 # app.include_router(rounds.router)
 # app.include_router(pairs.router)
 
