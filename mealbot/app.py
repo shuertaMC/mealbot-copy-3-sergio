@@ -67,25 +67,31 @@ def _register_routes(app):
     )
 
     # Organization endpoints
+    # In Go, serveMux.Handle() matches all HTTP methods; the handler itself
+    # validates the method and returns 405 for invalid ones.
     app.add_url_rule(
         "/orgs",
         endpoint="orgs",
         view_func=get_organizations_handler,
-        methods=["GET", "OPTIONS"],
+        methods=["GET", "POST", "DELETE", "OPTIONS"],
     )
 
+    # In Go, serveMux.Handle() matches all HTTP methods and the handler
+    # itself checks the method and returns 405. We register all common
+    # methods here so Flask routes the request to the handler instead of
+    # falling through to the static file catch-all.
     app.add_url_rule(
         "/org",
         endpoint="org",
         view_func=create_organization_handler,
-        methods=["POST", "OPTIONS"],
+        methods=["GET", "POST", "DELETE", "OPTIONS"],
     )
 
     app.add_url_rule(
         "/crossmatchtrait",
         endpoint="crossmatchtrait",
         view_func=cross_match_trait_handler,
-        methods=["POST", "OPTIONS"],
+        methods=["GET", "POST", "DELETE", "OPTIONS"],
     )
 
     # Static file serving at root /
