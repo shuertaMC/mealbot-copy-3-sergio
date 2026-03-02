@@ -5,6 +5,7 @@ Note: The Go code uses `last_round_with` column (not `pair_counts` as in schema.
 """
 
 from sqlalchemy import (
+    JSON,
     Boolean,
     DateTime,
     ForeignKey,
@@ -14,6 +15,9 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+
+# Use JSONB on PostgreSQL, fall back to JSON on other databases (e.g., SQLite for tests)
+JSONType = JSON().with_variant(JSONB, "postgresql")
 
 
 class Base(DeclarativeBase):
@@ -56,9 +60,9 @@ class Member(Base):
     email: Mapped[str] = mapped_column(String, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     metadata_: Mapped[dict | None] = mapped_column(
-        "metadata", JSONB, nullable=True
+        "metadata", JSONType, nullable=True
     )
-    last_round_with: Mapped[dict] = mapped_column(JSONB, nullable=False)
+    last_round_with: Mapped[dict] = mapped_column(JSONType, nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
     # Relationships
